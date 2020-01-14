@@ -2,6 +2,7 @@ const apiKey = '416e0f0dd8c8e9042517b54f30bf565c';
 let latitude;
 let longitude;
 const notification = document.getElementsByClassName('notification')[0];
+let weather;
 
 getLocation();
 function getLocation() {
@@ -15,12 +16,19 @@ function onSuccess(position) {
     latitude = position.coords.latitude;
     longitude = position.coords.longitude;
 
-    const weather = fetch('https://api.openweathermap.org/data/2.5/weather?' 
+    const weatherCall = fetch('https://api.openweathermap.org/data/2.5/weather?' 
                             + 'lat=' + latitude 
                             + '&lon=' + longitude 
                             + '&appid=' + apiKey);
 
-    
+    weatherCall.then(response => response.json())
+            .then(weatherInfo => {
+                console.log(weatherInfo)
+                console.log(weatherInfo.weather[0].icon);
+                console.log(parseInt(weatherInfo.main.temp - 273.15));
+                console.log(weatherInfo.weather[0].main);
+                console.log(weatherInfo.name);
+            });
 }
 
 function onError(error) {
