@@ -1,4 +1,4 @@
-// api key : 82005d27a116c2880c8f0fcb866998a0
+const apiKey = '416e0f0dd8c8e9042517b54f30bf565c';
 let latitude;
 let longitude;
 const notification = document.getElementsByClassName('notification')[0];
@@ -12,6 +12,15 @@ function getLocation() {
 
 function onSuccess(position) {
     console.log(position);
+    latitude = position.coords.latitude;
+    longitude = position.coords.longitude;
+
+    const weather = fetch('https://api.openweathermap.org/data/2.5/weather?' 
+                            + 'lat=' + latitude 
+                            + '&lon=' + longitude 
+                            + '&appid=' + apiKey);
+
+    
 }
 
 function onError(error) {
