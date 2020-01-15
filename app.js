@@ -11,21 +11,25 @@ function getLocation() {
     }
 }
 
+function kelvinToCelsius(temp) {
+    return temp - 273.15;
+}
+
 function onSuccess(position) {
     console.log(position);
     latitude = position.coords.latitude;
     longitude = position.coords.longitude;
 
-    const weatherCall = fetch('https://api.openweathermap.org/data/2.5/weather?' 
-                            + 'lat=' + latitude 
-                            + '&lon=' + longitude 
+    const weatherCall = fetch('https://api.openweathermap.org/data/2.5/weather?'
+                            + 'lat=' + latitude
+                            + '&lon=' + longitude
                             + '&appid=' + apiKey);
 
     weatherCall.then(response => response.json())
             .then(weatherInfo => {
                 console.log(weatherInfo)
                 console.log(weatherInfo.weather[0].icon);
-                console.log(parseInt(weatherInfo.main.temp - 273.15));
+                console.log(kelvinToCelsius(weatherInfo.main.temp).toFixed(1));
                 console.log(weatherInfo.weather[0].main);
                 console.log(weatherInfo.name);
             });
